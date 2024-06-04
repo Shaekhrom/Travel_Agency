@@ -22,9 +22,8 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<Reserva> listarReservasPorHotel(String nombreHotel) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reserva> listarReservasPorHotel(int idHotel) {
+		return dao.findByidHotel(idHotel);
 	}
 
 }

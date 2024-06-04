@@ -7,5 +7,5 @@ import com.curso.model.Reserva;
 public interface ReservaService {
 	String insertarReserva(Reserva reserva);
 	
-	List<Reserva> listarReservasPorHotel(String nombreHotel);
+	List<Reserva> listarReservasPorHotel(int idHotel);
 }

@@ -1,5 +1,8 @@
 package com.curso.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +30,8 @@ public class ReservaController {
 	private RestTemplate restTemplate;
 
 	private static final String VUELO_SERVICE_URL = "http://localhost:7000/actualizarVuelo";
+	private static final String HOTEL_SERVICE_URL = "http://localhost:8000/hotel/{nombreHotel}";
+
 
 	/*
 	 * Inserta una reserva en la BBDD, llama a actualizarVuelo del microservicio
@@ -79,4 +86,48 @@ public class ReservaController {
         }
 	}
 	
+	
+	/**
+     * Llama al microservicio de hotel usando el nombre del hotel para obtener un json con los datos del hotel y de ahi sacar la id del hotel, entonces llamar
+     * al metodo listarReservasPorHotel para mostrar las reservas por id de hotel segun el nombre de hotel pasado por parametro
+     *
+     * @param nombreHotel el nombre del hotel a buscar
+     * @return ResponseEntity con la lista de reservas o mensaje de error
+     */
+	@GetMapping("/reserva/{nombreHotel}")
+    public ResponseEntity<?> listarReservasPorNombreHotel(@PathVariable String nombreHotel) {
+        try {
+            // Llamar al microservicio del hotel para obtener la información del hotel
+            ResponseEntity<Map> responseEntity = restTemplate.exchange(
+                HOTEL_SERVICE_URL,
+                HttpMethod.GET,
+                null,
+                Map.class,
+                nombreHotel
+            );
+
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                throw new RuntimeException("Error al obtener datos del hotel: " + nombreHotel);
+            }
+
+            Map<String, Object> hotelData = responseEntity.getBody();
+            if (hotelData == null || !hotelData.containsKey("idHotel")) {
+                throw new RuntimeException("El hotel no contiene un ID válido: " + nombreHotel);
+            }
+
+            int idHotel = (int) hotelData.get("idHotel");
+
+            // Llamar al servicio para obtener la lista de reservas por ID de hotel
+            List<Reserva> reservas = service.listarReservasPorHotel(idHotel);
+
+            if (reservas.isEmpty()) {
+                return ResponseEntity.ok("No hay reservas disponibles para el hotel: " + nombreHotel);
+            }
+
+            return ResponseEntity.ok(reservas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al obtener las reservas: " + e.getMessage());
+        }
+    }
 }
