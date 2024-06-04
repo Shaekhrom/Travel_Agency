@@ -1,6 +1,7 @@
 package com.curso.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -16,8 +17,10 @@ public class Vuelo {
 	@Column(name = "id_vuelo")
 	private int idVuelo;
 	private String compania;
+	@Column(name = "fecha_vuelo")
 	private Date fechaVuelo;
 	private double precio;
+	@Column(name = "plazas_disponibles")
 	private int plazasDisponibles;
 	
 	public Vuelo() {
