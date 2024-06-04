@@ -7,7 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id; 
-
+/**
+ * Clase que representa un hotel.
+ * Utilizada para mapear la entidad Hotel en la base de datos.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
 @Entity
 public class Hotel {
 	@Id
@@ -18,11 +23,21 @@ public class Hotel {
 	private int categoria;
 	private double precio;
 	private String disponible;
-	
+	/**
+     * Constructor sin argumentos de la clase Hotel.
+     */
 	public Hotel() {
 		super();
 	}
-
+	/**
+     * Constructor con argumentos de la clase Hotel.
+     * 
+     * @param idHotel el ID del hotel
+     * @param nombre el nombre del hotel
+     * @param categoria la categoría del hotel
+     * @param precio el precio del hotel
+     * @param disponible la disponibilidad del hotel
+     */
 	public Hotel(int idHotel, String nombre, int categoria, double precio, String disponible) {
 		super();
 		this.idHotel = idHotel;

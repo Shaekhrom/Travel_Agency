@@ -10,6 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Clase que representa un vuelo en la agencia de viajes.
+ * Esta clase define los atributos y métodos relacionados con un vuelo.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
+
 @Entity
 public class Vuelo {
 	@Id
@@ -22,11 +29,22 @@ public class Vuelo {
 	private double precio;
 	@Column(name = "plazas_disponibles")
 	private int plazasDisponibles;
-	
+	/**
+     * Constructor por defecto de la clase Vuelo.
+     */
 	public Vuelo() {
 		super();
 	}
 
+	 /**
+     * Constructor de la clase Vuelo con parámetros.
+     * 
+     * @param idVuelo el ID del vuelo
+     * @param compania la compañía del vuelo
+     * @param fechaVuelo la fecha del vuelo
+     * @param precio el precio del vuelo
+     * @param plazasDisponibles el número de plazas disponibles del vuelo
+     */
 	public Vuelo(int idVuelo, String compania, Date fechaVuelo, double precio, int plazasDisponibles) {
 		super();
 		this.idVuelo = idVuelo;

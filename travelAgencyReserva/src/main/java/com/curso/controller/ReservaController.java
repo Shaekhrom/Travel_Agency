@@ -20,6 +20,13 @@ import org.springframework.web.client.RestTemplate;
 import com.curso.model.Reserva;
 import com.curso.service.ReservaService;
 
+/**
+ * Controlador para manejar las operaciones relacionadas con las reservas.
+ * Permite insertar reservas y listar reservas por nombre de hotel.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
+
 @RestController
 public class ReservaController {
 
@@ -33,7 +40,7 @@ public class ReservaController {
 	private static final String HOTEL_SERVICE_URL = "http://localhost:8000/hotel/{nombreHotel}";
 
 
-	/*
+	/**
 	 * Inserta una reserva en la BBDD, llama a actualizarVuelo del microservicio
 	 * vuelo
 	 * Ejemplo de uso en POST --> http://localhost:8080/insertarReserva
@@ -61,12 +68,12 @@ public class ReservaController {
 
 	}
 	
-	/**
-	 * 
-	 * Intenta actualizar las plazas de un vuelo por id, si no lo consigue muestra mensaje de error
-	 * @param idVuelo
-	 * @param plazasReservadas
-	 */
+	 /**
+     * Intenta actualizar las plazas de un vuelo por ID, mostrando un mensaje de error si no lo consigue.
+     * 
+     * @param idVuelo el ID del vuelo a actualizar
+     * @param plazasReservadas el número de plazas reservadas
+     */
 	private void actualizarPlazas(int idVuelo, int plazasReservadas) {
 		String url = VUELO_SERVICE_URL + "/" + idVuelo + "/" + plazasReservadas;
 		
@@ -88,12 +95,14 @@ public class ReservaController {
 	
 	
 	/**
-     * Llama al microservicio de hotel usando el nombre del hotel para obtener un json con los datos del hotel y de ahi sacar la id del hotel, entonces llamar
-     * al metodo listarReservasPorHotel para mostrar las reservas por id de hotel segun el nombre de hotel pasado por parametro
+     * Llama al microservicio de hotel usando el nombre del hotel para obtener información del hotel.
+     * Luego llama al método listarReservasPorHotel para mostrar las reservas por ID de hotel.
+     * Ejemplo de uso en GET --> http://localhost:8080/reserva/Sunset Resort
      *
      * @param nombreHotel el nombre del hotel a buscar
      * @return ResponseEntity con la lista de reservas o mensaje de error
      */
+	
 	@GetMapping("/reserva/{nombreHotel}")
     public ResponseEntity<?> listarReservasPorNombreHotel(@PathVariable String nombreHotel) {
         try {
@@ -112,7 +121,7 @@ public class ReservaController {
 
             Map<String, Object> hotelData = responseEntity.getBody();
             if (hotelData == null || !hotelData.containsKey("idHotel")) {
-                throw new RuntimeException("El hotel no contiene un ID válido: " + nombreHotel);
+                throw new RuntimeException("El hotel no ha sido encontrado: " + nombreHotel);
             }
 
             int idHotel = (int) hotelData.get("idHotel");

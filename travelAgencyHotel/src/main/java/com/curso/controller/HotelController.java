@@ -10,14 +10,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.curso.model.Hotel;
 import com.curso.service.HotelService;
-
+/**
+ * Controlador para manejar las operaciones relacionadas con los hoteles.
+ * Permite listar todos los hoteles y obtener información de un hotel por su nombre.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
 @RestController
 public class HotelController {
 
 	@Autowired
 	HotelService service;
 	
-	//lista todos los hoteles
+	/**
+     * Lista todos los hoteles.
+     * 
+     * @return una lista de todos los hoteles
+     */
 	//uso en GET --> http://localhost:8000/hoteles
 	@GetMapping(value="hoteles", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Hotel> hoteles(){
@@ -25,7 +34,12 @@ public class HotelController {
 	}
 	
 	
-	//obtiene datos de un hotel por nombre del hotel
+	/**
+     * Obtiene datos de un hotel por su nombre.
+     * 
+     * @param nombreHotel el nombre del hotel
+     * @return los datos del hotel con el nombre especificado
+     */
 	//uso en GET --> http://localhost:8000/hotel/Grand Hotel
 	@GetMapping(value="hotel/{nombreHotel}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Hotel obtenerHotelPorNombre(@PathVariable("nombreHotel") String nombreHotel){

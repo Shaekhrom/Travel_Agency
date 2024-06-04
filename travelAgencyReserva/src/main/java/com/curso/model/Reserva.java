@@ -8,7 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+/**
+ * Clase que representa una reserva de hotel y vuelo.
+ * Esta clase está mapeada a la tabla "reserva" en la base de datos.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
 @Entity
 @Table(name = "reserva")
 public class Reserva {
@@ -26,12 +31,23 @@ public class Reserva {
 	@Column(name = "num_personas")
 	private int numPersonas;
 	
-	
+	/**
+     * Constructor por defecto de la clase Reserva.
+     */
 	public Reserva() {
 		super();
 	}
 
-
+	/**
+     * Constructor de la clase Reserva con parámetros.
+     * 
+     * @param idReserva el ID de la reserva
+     * @param nombreCliente el nombre del cliente
+     * @param dni el DNI del cliente
+     * @param idHotel el ID del hotel
+     * @param idVuelo el ID del vuelo
+     * @param numPersonas el número de personas en la reserva
+     */
 	public Reserva(int idReserva, String nombreCliente, String dni, int idHotel, int idVuelo, int numPersonas) {
 		super();
 		this.idReserva = idReserva;

@@ -10,18 +10,36 @@ import com.curso.model.Vuelo;
 
 import jakarta.transaction.Transactional;
 
+/**
+ * Implementación de la interfaz VueloService que proporciona la lógica de negocio para gestionar vuelos.
+ * Esta clase realiza operaciones de consulta y actualización de vuelos utilizando el DAO de Vuelo.
+ * 
+ * @author Alejandro Barbacil Castro
+ */
+
 @Service
 public class VueloServiceImpl implements VueloService {
 	@Autowired
 	VueloDAO dao;
 
-	//devuelve una lista de vuelos que sus plazas sean iguales o superior a las pasadas por parametro
+	 /**
+     * Obtiene una lista de vuelos que tengan un número igual o menor de plazas disponibles que el valor proporcionado.
+     * 
+     * @param plazasDisponibles el número máximo de plazas disponibles
+     * @return una lista de vuelos que cumplen con el criterio de plazas disponibles
+     */
 	@Override
 	public List<Vuelo> obtenerVuelosSegunPlazas(int plazasDisponibles) {
 		return dao.findByPlazasDisponiblesLessThanOrEqual(plazasDisponibles);
 	}
 
-	//primero comprueba si es posible restar las plazas, si lo es las resta y devuelve un string segun si las ha podido restar o no
+	/**
+     * Actualiza el número de plazas disponibles de un vuelo especificado por su ID, restando las plazas reservadas.
+     * 
+     * @param idVuelo el ID del vuelo a actualizar
+     * @param plazasReservadas el número de plazas a restar
+     * @return un mensaje indicando el resultado de la operación
+     */
 	@Override
 	@Transactional
     public String actualizarVuelo(int idVuelo, int plazasReservadas) {
