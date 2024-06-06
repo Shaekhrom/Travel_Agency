@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @EntityScan(basePackages="com.curso.model")
 @EnableJpaRepositories(basePackages="com.curso.dao")
-@SpringBootApplication(scanBasePackages = {"com.curso.controller", "com.curso.service"})
+@SpringBootApplication(scanBasePackages = {"com.curso.controller", "com.curso.service", "com.curso.config"})
 public class TravelAgencyHotelApplication {
 
 	public static void main(String[] args) {
