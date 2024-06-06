@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
  */
 @EntityScan(basePackages="com.curso.model")
 @EnableJpaRepositories(basePackages="com.curso.dao")
-@SpringBootApplication(scanBasePackages = {"com.curso.controller", "com.curso.service"})
+@SpringBootApplication(scanBasePackages = {"com.curso.controller", "com.curso.service", "com.curso.config"})
+@EnableWebSecurity
 public class TravelAgencyReservaApplication {
 
 	public static void main(String[] args) {
@@ -30,5 +32,6 @@ public class TravelAgencyReservaApplication {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+	
 
 }

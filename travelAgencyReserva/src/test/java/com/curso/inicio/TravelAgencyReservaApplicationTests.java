@@ -1,13 +1,12 @@
 package com.curso.inicio;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class TravelAgencyReservaApplicationTests {
+@SpringBootApplication(scanBasePackages = {"com.curso.controller", "com.curso.service", "com.curso.model"})
+public class TravelAgencyReservaApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(TravelAgencyReservaApplicationTests.class, args);
+    }
 }
